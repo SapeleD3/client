@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
 import { Register } from './components/Register';
-import { Dashboard } from './components/Dashboard';
+import { Login } from './components/Login';
 
 
 const initialState = {
   route: 'reg',
   isRegistered: false,
-  name: ''
+  name: '',
+  regError: '',
 }
 class App extends React.Component {
   constructor() {
@@ -25,7 +26,10 @@ class App extends React.Component {
   }
 
   loadUser = (data) => {
-    this.setState({name: data.name})
+    this.setState({
+      name: data.name,
+      error: data.regError
+    })
   }
 
   render() {
@@ -33,7 +37,7 @@ class App extends React.Component {
       <div className="App">
         {
           this.state.route === 'reg' ? <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-          : <Dashboard name={this.state.name}/>
+          : <Login onRouteChange={this.onRouteChange}/>
         }
         
       </div>
